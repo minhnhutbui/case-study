@@ -4,12 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Mali:wght@400;500;600;700&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,400&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <title>Flappy Bird</title>
 </head>
 <body>
-    <canvas id ="canvas" width="900" height = "500"></canvas>
-    <h3 id ="score">Score</h3>
+    <div id = "options">
+        <a href="#" id ="start" onclick="start()">Start Game</a>
+        <a href="#" id ="instruction" onclick = "instruction()">Hướng Dẫn</a>
+    </div>
+    <div>
+        <canvas id ="canvas" width="900" height = "500"></canvas>
+        <h3 id ="score"></h3>
+    </div>
+    <div id ="game-over">
+        <h3 id ="game-over-title"></h3>
+        <p id ="score2"></p>
+        <button id ="replay" onclick="start();"></button>
+    </div>
     <script src ="./assets/js/main.js"></script>
 </body>
 </html>

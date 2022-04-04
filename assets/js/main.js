@@ -1,5 +1,4 @@
 function start() {
-
     let canvas = document.getElementById('canvas');
     let canvasContext = canvas.getContext('2d');
     let showScore = document.getElementById('score');
@@ -83,7 +82,7 @@ function start() {
     let gameOverScore = document.getElementById("score2");
     gameOver.style.display = "none";
 
-    
+
     function gameover() {
         let gameOverTitle = document.getElementById("game-over-title");
         gameOverTitle.innerHTML = "ĐI RỒI CỤ !"
@@ -105,4 +104,24 @@ function start() {
     }
     run();
 }
-// start();
+let instructionButton = document.getElementById("instruction");
+let startButton = document.getElementById("start");
+let instructionQuote = document.getElementById("instructionQuote");
+let backButton = document.getElementById("back");
+
+function options () {
+    instructionButton.style.display = "block";
+    startButton.style.display = "block";
+    instructionQuote.style.display = "none";
+    backButton.style.display = "none";
+    
+}
+function instruction() {
+    instructionButton.style.display = "none";
+    startButton.style.display = "none";
+    instructionQuote.style.display = "block";
+    backButton.style.display = "block";
+}
+function back() {
+    return options ();
+}

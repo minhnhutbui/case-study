@@ -10,9 +10,13 @@
     <title>Flappy Bird</title>
 </head>
 <body>
-    <div id = "options">
+    <div id = "options" >
         <a href="#" id ="start" onclick="start()">Start Game</a>
-        <a href="#" id ="instruction" onclick = "instruction()">Hướng Dẫn</a>
+        <a href="#" id ="instruction" onclick = "instruction()">
+            Hướng Dẫn
+        </a>
+        <p id ="instructionQuote">Bấm bất kì nút nào để chim bay lên</p>
+        <button id ="back" onclick="options()">Back</button>
     </div>
     <div>
         <canvas id ="canvas" width="900" height = "500"></canvas>

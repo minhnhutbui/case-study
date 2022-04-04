@@ -68,4 +68,24 @@
     font-weight: bold;
     margin: 10px;
 }
+#start, #instruction, #back:hover {
+    background-color: #F2D472;
+}
+#instructionQuote {
+    font-size: 30px;
+    font-weight: bold;
+    display: none;
+}
+#back {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    display: none;
+    background-color: #DCBE5C;
+    border: 2px solid #7B572D;
+    border-radius: 30px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
 

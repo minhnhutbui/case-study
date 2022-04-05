@@ -57,7 +57,7 @@
     align-items: center;
     background-image: url("/assets/img/background.png");
 }
-#start, #instruction {
+#start {
     display: inline-block;
     text-decoration: none;
     color: black;
@@ -68,8 +68,28 @@
     font-weight: bold;
     margin: 10px;
 }
-#start, #instruction, #back:hover {
+#instruction {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 10px 30PX;
+    background-color: #DCBE5C;
+    border: 2px solid #7B572D;
+    border-radius: 30px;
+    font-weight: bold;
+    margin: 10px;
+}
+#start:hover {
     background-color: #F2D472;
+    cursor: pointer;
+}
+#instruction:hover {
+    background-color: #F2D472;
+    cursor: pointer;
+}
+#back:hover {
+    background-color: #F2D472;
+    cursor: pointer;
 }
 #instructionQuote {
     font-size: 30px;

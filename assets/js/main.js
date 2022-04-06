@@ -1,4 +1,7 @@
+
+
 function start() {
+
     let canvas = document.getElementById('canvas');
     let canvasContext = canvas.getContext('2d');
     let showScore = document.getElementById('score');
@@ -28,17 +31,35 @@ function start() {
     let gap = 100; // khoảng trống giữa 2 ống
     let constant; // khoảng cách từ trên cùng của ống trên đến đầu ống dưới
 
-    let bird = {
-        x: background.width / 4,
-        y: background.height / 2,
+    class Bird {
+        x;
+        y;
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        moveUp() {
+            this.y -= 50;
+        }
     }
+
+    class Block {
+        x;
+        y;
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        moveLeft() {
+            this.x -= 3;
+        }
+    }
+
+    let bird = new Bird(background.width / 4, background.height / 2);
 
     let block = [];
 
-    block[0] = {
-        x: canvas.width,
-        y: 0,
-    }
+    block[0] = new Block(canvas.width, 0);
 
     function run() {
         canvasContext.drawImage(background, 0, 0);
@@ -46,17 +67,17 @@ function start() {
 
         for (let i = 0; i < block.length; i++) {
             constant = upblock.height + gap;
-            canvasContext.drawImage(upblock, block[i].x, block[i].y); //ve ong tren
-            canvasContext.drawImage(downblock, block[i].x, block[i].y + constant); // ve ong duoi
-            block[i].x -= 3 // di chuyen ong sang trai
+            canvasContext.drawImage(upblock, block[i].x, block[i].y);
+            canvasContext.drawImage(downblock, block[i].x, block[i].y + constant);
+            block[i].moveLeft();
 
             if (block[i].x == canvas.width / 2) {
-                block.push({
-                    x: canvas.width,
-                    y: Math.floor(Math.random() * upblock.height) - upblock.height
-                })
+                block.push(new Block(
+                    canvas.width,
+                    Math.floor(Math.random() * upblock.height) - upblock.height
+                ));
             }
-            if (block[i].x === 0) {
+            if (block[i].x == 0) {
                 block.splice(0, 1);
             }
             if (bird.x === block[i].x) {
@@ -96,12 +117,10 @@ function start() {
         gameOver.style.height = canvas.height / 3 + "px";
     }
 
-    document.addEventListener("keydown", moveUp);
-
-    function moveUp() {
-        bird.y -= 50;
+    document.addEventListener("keydown", function () {
+        bird.moveUp()
         fly.play();
-    }
+    });
     run();
 }
 let instructionButton = document.getElementById("instruction");
@@ -109,7 +128,7 @@ let startButton = document.getElementById("start");
 let instructionQuote = document.getElementById("instructionQuote");
 let backButton = document.getElementById("back");
 
-function options () {
+function options() {
     instructionButton.style.display = "block";
     startButton.style.display = "block";
     instructionQuote.style.display = "none";
@@ -123,107 +142,5 @@ function instruction() {
     backButton.style.display = "block";
 }
 function back() {
-    return options ();
+    return options();
 }
-
-
-
-
-
-// let canvas = document.getElementById('canvas');
-// let canvasContext = canvas.getContext('2d');
-// let showScore = document.getElementById('score');
-
-// // Set up background
-// let background = new Image();
-// let floor = new Image();
-// let birdImg = new Image();
-// let upblock = new Image();
-// let downblock = new Image();
-
-// background.src = "./assets/img/background.png";
-// floor.src = "./assets/img/floor.png";
-// birdImg.src = "./assets/img/bird.png";
-// upblock.src = "./assets/img/upblock.png";
-// downblock.src = "./assets/img/downblock.png";
-
-// //Set up audio
-
-// let fly = new Audio();
-// let scoreSound = new Audio();
-
-// fly.src = "./assets/sound/fly.mp3";
-// scoreSound.src = "./assets/sound/score.mp3";
-
-// let score = 0;
-// let gap = 100; // khoảng trống giữa 2 ống
-// let constant; // khoảng cách từ trên cùng của ống trên đến đầu ống dưới
-
-// class Bird {
-//     x;
-//     y;
-//     constructor(x, y) {
-//         this.x = x;
-//         this.y = y;
-//     }
-//     moveUp() {
-//         this.y -= 50;
-//     }
-// }
-
-// class Block {
-//     x;
-//     y;
-//     constructor(x, y) {
-//         this.x = x;
-//         this.y = y;
-//     }
-//     moveLeft() {
-//         this.x -= 3;
-//     }
-// }
-
-// let bird = new Bird(background.width / 4, background.height / 2);
-
-// let block = [];
-
-// block[0] = new Block(canvas.width, 0);
-
-// function run() {
-//     canvasContext.drawImage(background, 0, 0);
-//     canvasContext.drawImage(birdImg, bird.x, bird.y);
-
-//     for (let i = 0; i < block.length; i++) {
-//         constant = upblock.height + gap;
-//         canvasContext.drawImage(upblock, block[i].x, block[i].y);
-//         canvasContext.drawImage(downblock, block[i].x, block[i].y + constant);
-//         block[i].moveLeft();
-
-//         if (block[i].x == canvas.width / 2) {
-//             block.push(new Block(
-//                 canvas.width,
-//                 Math.floor(Math.random() * upblock.height) - upblock.height
-//             ));
-//         }
-//         if (block[i].x == 0) {
-//             block.splice(0, 1);
-//         }
-//         if (bird.x === block[i].x) {
-//             score++;
-//             scoreSound.play();
-//         }
-//         if (bird.y + birdImg.height >= canvas.height || bird.y <= 0 ||
-//             (bird.x <= block[i].x + upblock.width && bird.x + birdImg.width >= block[i].x && bird.y <= block[i].y + upblock.height) ||
-//             (bird.x <= block[i].x + upblock.width && bird.x + birdImg.width >= block[i].x && bird.y + birdImg.height >= block[i].y + constant)) {
-//                 return gameover();
-//             }
-//         }
-//         showScore.innerHTML = `score: ${score}`;
-//         bird.y += 3;
-//         requestAnimationFrame(run)
-// }
-
-// document.addEventListener("keydown", function () {
-//     bird.moveUp()
-//     fly.play();
-// });

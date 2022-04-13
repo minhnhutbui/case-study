@@ -65,6 +65,7 @@ function start() {
         canvasContext.drawImage(background, 0, 0);
         canvasContext.drawImage(birdImg, bird.x, bird.y);
 
+
         for (let i = 0; i < block.length; i++) {
             constant = upblock.height + gap;
             canvasContext.drawImage(upblock, block[i].x, block[i].y);
@@ -80,6 +81,7 @@ function start() {
             if (block[i].x == 0) {
                 block.splice(0, 1);
             }
+
             if (bird.x === block[i].x) {
                 score++;
                 scoreSound.play();
@@ -90,9 +92,12 @@ function start() {
                 return gameover();
             }
         }
+        localStorage.setItem("mostRecentScore", score);
+
         showScore.innerHTML = `score: ${score}`;
         bird.y += 1.5;
         requestAnimationFrame(run)
+
     }
     // LÀM NÚT START ẨN ĐI ĐỂ VÀO GAME 
     let options = document.getElementById("options");
@@ -107,32 +112,84 @@ function start() {
     function gameover() {
         let gameOverTitle = document.getElementById("game-over-title");
         gameOverTitle.innerHTML = "ĐI RỒI CỤ !"
-        let replayButton = document.getElementById("replay");
-        replayButton.innerHTML = "Luyện thêm đê"
-        replayButton.style.padding = 10 + "px"
-        gameOver.style.display = "inline-block";
+        gameOver.style.display = "flex";
         gameOver.style.border = 5 + "px solid #7b572d";
         gameOverScore.innerHTML = `Điểm nè: ${score}`
         gameOver.style.width = canvas.width / 3 + "px";
-        gameOver.style.height = canvas.height / 3 + "px";
+        gameOver.style.height = canvas.height / 2 + "px";
     }
 
-    document.addEventListener("keydown", function () {
-        bird.moveUp()
-        fly.play();
+    document.addEventListener("keydown", function (e) {
+        if (e.keyCode === 38) {
+            bird.moveUp()
+            fly.play();
+        }
     });
+
     run();
 }
+// SAVE SCORE
+let username = document.getElementById("username");
+let saveScore = document.getElementById("savescore");
+let mostRecentScore = localStorage.getItem("mostRecentScore");
+let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+username.addEventListener("keyup", () => {
+    saveScore.disabled = !username.value;
+})
+
+function saveHighScore(e) {
+    mostRecentScore = localStorage.getItem("mostRecentScore");
+    e.preventDefault();
+    let score = {
+        score: mostRecentScore,
+        name: username.value
+    }
+    highScores.push(score);
+
+    // SORT SCORE FROM HIGHEST TO LOWEST
+    highScores.sort(function (a, b) {
+        return b.score - a.score
+    })
+    highScores.splice(5);
+    localStorage.setItem("highScores", JSON.stringify(highScores))
+
+    window.location.assign("/")
+}
+
+
+
+
+
+
 let instructionButton = document.getElementById("instruction");
 let startButton = document.getElementById("start");
 let instructionQuote = document.getElementById("instructionQuote");
 let backButton = document.getElementById("back");
+let highScoreBtn = document.getElementById("highScoreBtn");
+let highScoreList = document.getElementById("highScoreList");
+
+function displayHighScores() {
+    startButton.style.display = "none";
+    instructionButton.style.display = "none";
+    highScoreBtn.style.display = "none";
+    backButton.style.display = "block";
+    highScoreList.style.display = "block";
+    highScoreList.innerHTML = highScores
+        .map(function (score) {
+            return `<li>${score.name} - ${score.score}</li>`
+        })
+        .join("")
+}
+
 
 function options() {
     instructionButton.style.display = "block";
     startButton.style.display = "block";
     instructionQuote.style.display = "none";
     backButton.style.display = "none";
+    highScoreBtn.style.display = "inline-block"
+    highScoreList.style.display = "none"
 
 }
 function instruction() {
@@ -140,6 +197,7 @@ function instruction() {
     startButton.style.display = "none";
     instructionQuote.style.display = "block";
     backButton.style.display = "block";
+    highScoreBtn.style.display = "none"
 }
 function back() {
     return options();

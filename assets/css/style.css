@@ -14,9 +14,13 @@
     background-color: #c18848;
     position: relative;
     border-radius: 50px;
-    top: -350px;
+    top: -400px;
     left: 300px;
     display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
+    box-sizing: border-box;
 }
 #game-over-title {
     position: absolute;
@@ -28,22 +32,42 @@
 }
 #score2 {
     font-size: 30px;
-    height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#replay {
+/* FORM CSS */
+form {
+    display: flex;
+    flex-direction: column;
+}
+input {
+    border-radius: 10px;
+    font-size: 15px;
+    height : 30px;
+    margin-bottom: 10px;
+}
+#savescore {
+    margin-bottom: 10px;
+}
+#game-over-options {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#savescore {
     border: 2px solid #7b572d;
     background-color: #dcbe5c;
     border-radius: 10px;
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+    padding: 10px;
     font-size: 15px;
 }
-#replay:hover {
+#savescore:disabled {
+    cursor: default !important;
+    background-color: #dcbe5c !important;
+}
+#savescore:hover {
     background-color: #f2d472;
     cursor: pointer;
 }
@@ -96,6 +120,21 @@
     font-weight: bold;
     display: none;
 }
+#highScoreBtn {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 10px 30PX;
+    background-color: #DCBE5C;
+    border: 2px solid #7B572D;
+    border-radius: 30px;
+    font-weight: bold;
+    margin: 10px;
+}
+#highScoreBtn:hover {
+    background-color: #F2D472;
+    cursor: pointer;
+}
 #back {
     position: absolute;
     top: 2%;
@@ -106,6 +145,12 @@
     border-radius: 30px;
     padding: 5px 10px;
     font-size: 15px;
+    font-weight: bold;
+}
+#highScoreList {
+    padding: 0;
+    list-style: none;
+    font-size: 25px;
     font-weight: bold;
 }
 

@@ -15,8 +15,10 @@
         <a href="#" id ="instruction" onclick = "instruction()">
             Hướng Dẫn
         </a>
-        <p id ="instructionQuote">Bấm bất kì nút nào để chim bay lên</p>
+        <p id ="instructionQuote">Bấm phím mũi tên lên để chim bay lên</p>
         <button id ="back" onclick="options()">Back</button>
+        <a href="#" id ="highScoreBtn" onclick ="displayHighScores()">High Score</a>
+        <ul id = "highScoreList"></ul>
     </div>
     <div>
         <canvas id ="canvas" width="900" height = "500"></canvas>
@@ -25,7 +27,12 @@
     <div id ="game-over">
         <h3 id ="game-over-title"></h3>
         <p id ="score2"></p>
-        <button id ="replay" onclick="start();"></button>
+        <div id ="game-over-options">
+            <form>
+                <input type="text" name ="username" id ="username" placeholder ="player name">
+                <button type ="submit" id ="savescore" disabled onclick="saveHighScore(event)">Save</button>
+            </form>
+        </div>
     </div>
     <script src ="./assets/js/main.js"></script>
 </body>

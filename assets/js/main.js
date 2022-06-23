@@ -111,10 +111,10 @@ function start() {
 
     function gameover() {
         let gameOverTitle = document.getElementById("game-over-title");
-        gameOverTitle.innerHTML = "ĐI RỒI CỤ !"
+        gameOverTitle.innerHTML = "FAIL !"
         gameOver.style.display = "flex";
         gameOver.style.border = 5 + "px solid #7b572d";
-        gameOverScore.innerHTML = `Điểm nè: ${score}`
+        gameOverScore.innerHTML = `Your Score: ${score}`
         gameOver.style.width = canvas.width / 3 + "px";
         gameOver.style.height = canvas.height / 2 + "px";
     }
